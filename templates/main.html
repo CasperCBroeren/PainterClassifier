@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <title>Classify a painter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+        <h3>Tensorflow for poets and painters ;)</h3>
+        <p>
+            Upload your painting of either Hopper, Magrite or Dali so I can tell you what it is. This is based on
+            <a href="https://codelabs.developers.google.com/codelabs/tensorflow-for-poets/#0">Tensorflow for Poets 2</a>
+        </p>
+        <form enctype="multipart/form-data" method="post" action="/classify">
+            <div class="form-group">
+                <label for="painting">Painting:</label>
+                <input type="file" name="painting" id="painting" class="form-control" />
+            </div>
+            <input type="submit" name="go" value="Go!" />
+        </form>
+                </div>
+        </div>
+        {% if uploaded %}
+        <div class="row">
+            <div class="col-sm">
+                <img src="/uploads/{{fileName}}" class="img-fluid" />
+            </div>
+            <div class="col-sm">
+                Results:
+                <ul>
+                {% for item in results %}
+                    <li>{{labels[loop.index0]}} score {{'{:.3f}'.format(item)}} %</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
